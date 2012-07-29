@@ -1,3 +1,11 @@
+<?php
+
+include 'classes/twitter.class.php';
+
+$twitter = new Twitter();
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
