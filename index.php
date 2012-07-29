@@ -13,6 +13,6 @@ $twitter = new Twitter( array( 'query' => 'test' ) );
 	<title></title>
 </head>
 <body>
-	<?php $twitter->display() ?>
+	<?php echo $twitter ?>
 </body>
 </html>

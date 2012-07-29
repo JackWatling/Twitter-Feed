@@ -6,11 +6,12 @@ class Twitter{
 
 	private $options = array(
 		'cache' => 'classes/twitter.cache',
-		'cache_timer' => 1,
+		'cache_timer' => 10,
 		// 'cache_timer' => 10800,
 		'url' => 'http://search.twitter.com/search.json',
 		'query' => '',
-		'user' => ''
+		'user' => '',
+		'limit' => 10
 	);
 
 	function __construct( array $options ){
@@ -43,16 +44,24 @@ class Twitter{
 	}
 
 	function buildQuery(){
-		return $this->options['url'] . '?q=' . $this->options['query'] . '&from=' . $this->options['user'];
+		return 	$this->options['url'] . '?'
+				. (isset( $this->options['query'] ) ? 'q=' . $this->options['query'] : '')
+				. (isset( $this->options['user'] ) ? '&from=' . $this->options['user'] : '')
+				. (isset( $this->options['limit'] ) ? '&rpp=' . $this->options['limit'] : '');
 	}
 
-	function display(){
+	function __toString(){
+		$display = '<ul>';
 		foreach ($this->fetch() as $tweet) {
-			echo '<ul>';
-			echo '	<li>' . $tweet->author . ' tweeted: </li>';
-			echo '	<li>' . $tweet->message . '</li>';
-			echo '</ul>';
+			$display .=
+			'<li>
+				<ul>
+					<li>' . $tweet->author . ' tweeted: </li>
+					<li>' . $tweet->message . '</li>
+				</ul>
+			</li>';
 		}
+		return $display . '</ul>';
 	}
 
 }
