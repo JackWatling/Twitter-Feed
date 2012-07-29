@@ -53,16 +53,13 @@ class Twitter{
 	}
 
 	function __toString(){
-		$display = '<ul>';
+		$display = '<ul class="twitter">';
 		foreach ($this->fetch() as $tweet) {
 			$display .=
-			'<li>
-				<ul>
-					<img src="' . $tweet->author_dp . '">
-					<li>' . $tweet->getAuthorLinked() . ' tweeted: </li>
-					<li>' . $tweet->message . '</li>
-					<li><a href="' . $tweet->permalink . '">Link</a>
-				</ul>
+			'<li class="tweet">
+				<a href="' . $tweet->permalink . '"><img src="' . $tweet->author_dp . '"></a>
+				<p><a href="' . $tweet->author_link . '">' . $tweet->author . '</a> tweeted:
+				<br />' . $tweet->message . '</p>
 			</li>';
 		}
 		return $display . '</ul>';

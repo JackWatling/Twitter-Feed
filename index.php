@@ -14,5 +14,6 @@ $twitter = new Twitter( array( 'cache_force' => true ) );
 </head>
 <body>
 	<?php echo $twitter ?>
+	<div class="clearfix"></div>
 </body>
 </html>

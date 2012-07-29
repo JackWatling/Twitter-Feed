@@ -15,6 +15,7 @@ class Tweet{
 		$this->author = $data['author'];
 		$this->author_id = $data['author_id'];
 		$this->author_dp = $data['author_dp'];
+		$this->author_link = $this->authorlink();
 		$this->permalink = $this->permalink();
 	}
 
@@ -22,15 +23,15 @@ class Tweet{
 		return 'https://www.twitter.com/' . $this->author . '/status/' . $this->message_id;
 	}
 
+	function authorlink(){
+		return 'https://www.twitter.com/' . $this->author;
+	}
+
 	function parseLinks( $message ){
 		$message = preg_replace( '/(http:\/\/[\w\/\-\.\?\&\#]+)/', '<a href="$1">$1</a>', $message );
 		$message = preg_replace( '/@([\w]+)/', '<a href="https://www.twitter.com/$1">@$1</a>', $message );
 		$message = preg_replace( '/#([\w]+)/', '<a href="https://www.twitter.com/search/%23$1">#$1</a>', $message );
 		return $message;
-	}
-
-	function getAuthorLinked(){
-		return '<a href="https://www.twitter.com/' . $this->author . '">' . $this->author . '</a>';
 	}
 
 }
