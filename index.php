@@ -2,7 +2,7 @@
 
 include 'classes/twitter.class.php';
 
-$twitter = new Twitter();
+$twitter = new Twitter( array( 'query' => 'test' ) );
 
 ?>
 
@@ -13,6 +13,8 @@ $twitter = new Twitter();
 	<title></title>
 </head>
 <body>
-	
+	<ul>
+		<?php $twitter->display() ?>
+	</ul>
 </body>
 </html>
