@@ -32,8 +32,9 @@ class Twitter{
 		foreach ($tweets as &$tweet) {
 			$tweet = new Tweet( array(
 				'message' => $tweet->text,
+				'message_id' => $tweet->id_str,
 				'author' => $tweet->from_user,
-				'author_id' => $tweet->from_user_id,
+				'author_id' => $tweet->from_user_id_str,
 				'author_dp' => $tweet->profile_image_url
 			));
 		}
@@ -60,6 +61,7 @@ class Twitter{
 					<img src="' . $tweet->author_dp . '">
 					<li>' . $tweet->getAuthorLinked() . ' tweeted: </li>
 					<li>' . $tweet->message . '</li>
+					<li><a href="' . $tweet->permalink . '">Link</a>
 				</ul>
 			</li>';
 		}

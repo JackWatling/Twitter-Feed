@@ -10,7 +10,7 @@ $twitter = new Twitter( array( 'cache_force' => true ) );
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Twitter Feed</title>
 </head>
 <body>
 	<?php echo $twitter ?>
