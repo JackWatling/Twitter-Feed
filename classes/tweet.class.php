@@ -21,22 +21,26 @@ class Tweet{
 		$this->permalink = $this->permalink();
 	}
 
-	function time(){
+	function time( $static = false ){
 		$time = time() - strtotime( $this->message_time );
-		$days = $time / (24 * 60 * 60) % 7;
-		$hours = $time / (60 * 60) % 24;
-		$minutes = $time / 60 % 60;
-		$seconds = $time % 60;
 
+		if ( $time / (24 * 60 * 60) % 7 > 0 || $static  )
+			return date( 'd/m/Y @ H:i', strtotime( $this->message_time ) );
 
-		if ( $days > 0 )
-			return date( 'd/m/Y @ h:i', strtotime( $this->message_time ) );
-		else if ( $hours > 0 )
-			return $hours . ' hour' . ($hours != 1 ? 's' : '') . ' ago';
-		else if ( $minutes > 0 )
-			return $minutes . ' minute' . ($minutes != 1 ? 's' : '') . ' ago';
-		else if ( $seconds > 0 )
-			return $seconds . ' second' . ($seconds != 1 ? 's' : '') . ' ago';
+		$increments = array(
+				'hour' => $time / (60 * 60) % 24,
+				'minute' => $time / 60 % 60,
+				'second' => $time % 60);
+
+		$time_string = '';
+		foreach ($increments as $inc => $val) {
+			if ($val > 0){
+				$time_string .= $val . ' ' . ( $val > 1 ? $inc . 's' : $inc );
+				break;
+			}
+		}
+
+		return $time_string . ' ago';
 	}
 
 	function permalink(){

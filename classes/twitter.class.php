@@ -11,9 +11,9 @@ class Twitter{
 		'url' => 'http://search.twitter.com/search.json',
 		'query' => '',
 		'user' => 'notch',
-		'type' => 'recent', //recent, mixed, popular
+		'type' => 'recent',
 		'ignore' => '',
-		'limit' => 50
+		'limit' => 50,
 	);
 
 	function __construct( array $options ){
@@ -53,6 +53,7 @@ class Twitter{
 				. (isset( $this->options['query'] ) ? 'q=' . $this->options['query'] : '')
 				. (isset( $this->options['ignore'] ) ? '-' . $this->options['ignore'] : '')
 				. (isset( $this->options['user'] ) ? '&from=' . $this->options['user'] : '')
+				. (isset( $this->options['type'] ) ? '&result_type=' . $this->options['type'] : '')
 				. (isset( $this->options['limit'] ) ? '&rpp=' . $this->options['limit'] : '');
 	}
 
@@ -63,7 +64,7 @@ class Twitter{
 			'<li class="tweet">
 				<section class="info">
 					<a href="' . $tweet->author_link . '">' . $tweet->author . '</a>
-					<a class="date" href="#">' . $tweet->time() . '</a>
+					<a class="date" href="#">' . $tweet->time( true ) . '</a>
 				</section>
 				<p>' . $tweet->message . '</p>
 			</li>';
