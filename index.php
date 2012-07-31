@@ -3,7 +3,7 @@
 include 'classes/twitter.class.php';
 
 // $twitter = new Twitter( array( 'cache_force' => true, 'ignore' => 'lol' ) );
-$twitter = new Twitter( array( 'cache_force' => true ) );
+$twitter = new Twitter( array( 'cache_force' => true, 'query' => 'hello world' ) );
 
 ?>
 

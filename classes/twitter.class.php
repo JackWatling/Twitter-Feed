@@ -19,18 +19,10 @@ class Twitter{
 	);
 
 	function __construct( array $options ){
-		$options = $this->replaceSpace( $options );
 		$this->options = array_merge( $this->options, $options );
 		Tweet::$standardise_time = $this->options['standardise_time'];
 		if ( !$this->isCached() || $this->options['cache_force'] )
 			$this->recache();
-	}
-
-	function replaceSpace( array $a ){
-		foreach ($a as $key => &$value) {
-			$value = str_replace(' ', '%20', $value);
-		}
-		return $a;
 	}
 
 	function isCached(){
@@ -86,7 +78,7 @@ class Twitter{
 			}
 				
 		}
-		return $query_string;
+		return str_replace(' ', '%20', $query_string );
 	}
 
 	function __toString(){
