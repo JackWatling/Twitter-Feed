@@ -14,6 +14,7 @@ class Twitter{
 		'type' => 'recent',
 		'ignore' => '',
 		'limit' => 50,
+		'time_ago' => false
 	);
 
 	function __construct( array $options ){
@@ -33,9 +34,9 @@ class Twitter{
 	function remap( $tweets ){
 		foreach ($tweets as &$tweet) {
 			$tweet = new Tweet( array(
-				'message' => $tweet->text,
-				'message_id' => $tweet->id_str,
-				'message_time' => $tweet->created_at,
+				'tweet' => $tweet->text,
+				'tweet_id' => $tweet->id_str,
+				'tweet_time' => $tweet->created_at,
 				'author' => $tweet->from_user,
 				'author_id' => $tweet->from_user_id_str,
 				'author_dp' => $tweet->profile_image_url
@@ -60,14 +61,7 @@ class Twitter{
 	function __toString(){
 		$display = '<ul class="twitter">';
 		foreach ($this->fetch() as $tweet) {
-			$display .= 
-			'<li class="tweet">
-				<section class="info">
-					<a href="' . $tweet->author_link . '">' . $tweet->author . '</a>
-					<a class="date" href="#">' . $tweet->time( true ) . '</a>
-				</section>
-				<p>' . $tweet->message . '</p>
-			</li>';
+			$display .= $tweet;
 		}
 		return $display . '</ul>';
 	}
