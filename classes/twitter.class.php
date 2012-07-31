@@ -11,7 +11,9 @@ class Twitter{
 		'url' => 'http://search.twitter.com/search.json',
 		'query' => '',
 		'user' => 'notch',
-		'limit' => 10
+		'type' => 'recent', //recent, mixed, popular
+		'ignore' => '',
+		'limit' => 50
 	);
 
 	function __construct( array $options ){
@@ -33,6 +35,7 @@ class Twitter{
 			$tweet = new Tweet( array(
 				'message' => $tweet->text,
 				'message_id' => $tweet->id_str,
+				'message_time' => $tweet->created_at,
 				'author' => $tweet->from_user,
 				'author_id' => $tweet->from_user_id_str,
 				'author_dp' => $tweet->profile_image_url
@@ -48,6 +51,7 @@ class Twitter{
 	function buildQuery(){
 		return 	$this->options['url'] . '?'
 				. (isset( $this->options['query'] ) ? 'q=' . $this->options['query'] : '')
+				. (isset( $this->options['ignore'] ) ? '-' . $this->options['ignore'] : '')
 				. (isset( $this->options['user'] ) ? '&from=' . $this->options['user'] : '')
 				. (isset( $this->options['limit'] ) ? '&rpp=' . $this->options['limit'] : '');
 	}
@@ -55,11 +59,13 @@ class Twitter{
 	function __toString(){
 		$display = '<ul class="twitter">';
 		foreach ($this->fetch() as $tweet) {
-			$display .=
+			$display .= 
 			'<li class="tweet">
-				<a href="' . $tweet->permalink . '"><img src="' . $tweet->author_dp . '"></a>
-				<p><a href="' . $tweet->author_link . '">' . $tweet->author . '</a> tweeted:
-				<br />' . $tweet->message . '</p>
+				<section class="info">
+					<a href="' . $tweet->author_link . '">' . $tweet->author . '</a>
+					<a class="date" href="#">' . $tweet->time() . '</a>
+				</section>
+				<p>' . $tweet->message . '</p>
 			</li>';
 		}
 		return $display . '</ul>';

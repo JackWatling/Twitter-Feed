@@ -2,7 +2,7 @@
 
 include 'classes/twitter.class.php';
 
-$twitter = new Twitter( array( 'cache_force' => true ) );
+$twitter = new Twitter( array( 'cache_force' => true, 'ignore' => 'sad') );
 
 ?>
 
@@ -10,10 +10,14 @@ $twitter = new Twitter( array( 'cache_force' => true ) );
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>Twitter Feed</title>
+	<title>My Tweets</title>
+	<link rel="stylesheet" href="fonts/stylesheet.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+	<h1>My Tweets</h1>
 	<?php echo $twitter ?>
-	<div class="clearfix"></div>
+
 </body>
 </html>
