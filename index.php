@@ -2,7 +2,8 @@
 
 include 'classes/twitter.class.php';
 
-$twitter = new Twitter( array( 'cache_force' => true, 'ignore' => 'sad') );
+// $twitter = new Twitter( array( 'cache_force' => true, 'ignore' => 'lol' ) );
+$twitter = new Twitter( array( 'cache_force' => true ) );
 
 ?>
 

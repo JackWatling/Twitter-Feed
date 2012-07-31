@@ -14,11 +14,12 @@ class Twitter{
 		'type' => 'recent',
 		'ignore' => '',
 		'limit' => 50,
-		'time_ago' => false
+		'standardise_time' => true
 	);
 
 	function __construct( array $options ){
 		$this->options = array_merge( $this->options, $options );
+		Tweet::$standardise_time = $this->options['standardise_time'];
 		if ( !$this->isCached() || $this->options['cache_force'] )
 			$this->recache();
 	}
@@ -50,12 +51,12 @@ class Twitter{
 	}
 
 	function buildQuery(){
-		return 	$this->options['url'] . '?'
-				. (isset( $this->options['query'] ) ? 'q=' . $this->options['query'] : '')
-				. (isset( $this->options['ignore'] ) ? '-' . $this->options['ignore'] : '')
-				. (isset( $this->options['user'] ) ? '&from=' . $this->options['user'] : '')
-				. (isset( $this->options['type'] ) ? '&result_type=' . $this->options['type'] : '')
-				. (isset( $this->options['limit'] ) ? '&rpp=' . $this->options['limit'] : '');
+		return $this->options['url'] . '?'
+			. (( $this->options['query'] != '' ) ? 'q=' . $this->options['query'] : '')
+			. (( $this->options['ignore'] != '' ) ? '-' . $this->options['ignore'] : '')
+			. (( $this->options['user'] != '' ) ? (( $this->options['query'] != '' || $this->options['ignore'] != '' ) ? '&' : '') . 'from=' . $this->options['user'] : '')
+			. (( $this->options['type'] != '' ) ? '&results_type=' . $this->options['type'] : '')
+			. (( $this->options['limit'] != '' ) ? '&rpp=' . $this->options['limit'] : '');
 	}
 
 	function __toString(){

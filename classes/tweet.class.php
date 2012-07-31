@@ -2,6 +2,8 @@
 
 class Tweet{
 
+	public static $standardise_time;
+
 	public $tweet;
 	public $tweet_id;
 	public $tweet_time;
@@ -62,7 +64,7 @@ class Tweet{
 		return '<li class="tweet">
 					<section class="info">
 						<a href="' . $this->author_link . '">' . $this->author . '</a>
-						<a class="date" href="#">' . $this->time( false ) . '</a>
+						<a class="date" href="#">' . $this->time( self::$standardise_time ) . '</a>
 					</section>
 					<p>' . $this->tweet . '</p>
 				</li>';
