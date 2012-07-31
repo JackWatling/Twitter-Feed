@@ -5,12 +5,13 @@ require_once 'tweet.class.php';
 class Twitter{
 
 	private $options = array(
+		'debug' => false,
 		'cache' => 'classes/twitter.cache',
 		'cache_timer' => 10800,
 		'cache_force' => false,
 		'url' => 'http://search.twitter.com/search.json',
 		'query' => '',
-		'user' => 'notch',
+		'user' => '',
 		'type' => 'recent',
 		'ignore' => '',
 		'limit' => 50,
@@ -18,10 +19,18 @@ class Twitter{
 	);
 
 	function __construct( array $options ){
+		$options = $this->replaceSpace( $options );
 		$this->options = array_merge( $this->options, $options );
 		Tweet::$standardise_time = $this->options['standardise_time'];
 		if ( !$this->isCached() || $this->options['cache_force'] )
 			$this->recache();
+	}
+
+	function replaceSpace( array $a ){
+		foreach ($a as $key => &$value) {
+			$value = str_replace(' ', '%20', $value);
+		}
+		return $a;
 	}
 
 	function isCached(){
@@ -50,13 +59,34 @@ class Twitter{
 		return unserialize( file_get_contents( $this->options['cache'] ) );
 	}
 
+	function invalidQuery(){
+		return $this->options['user'] == '' && $this->options['query'] == '';
+	}
+
 	function buildQuery(){
-		return $this->options['url'] . '?'
-			. (( $this->options['query'] != '' ) ? 'q=' . $this->options['query'] : '')
-			. (( $this->options['ignore'] != '' ) ? '-' . $this->options['ignore'] : '')
-			. (( $this->options['user'] != '' ) ? (( $this->options['query'] != '' || $this->options['ignore'] != '' ) ? '&' : '') . 'from=' . $this->options['user'] : '')
-			. (( $this->options['type'] != '' ) ? '&results_type=' . $this->options['type'] : '')
-			. (( $this->options['limit'] != '' ) ? '&rpp=' . $this->options['limit'] : '');
+		if ( $this->invalidQuery() ){
+			echo '<center><p>Invalid query supplied, ensure that a query or user is supplied, or both. Search defaulted to \'hello world\'.</p></center>';
+			$this->options['query'] = 'hello%20world';
+		}
+
+		$queries = array(
+			'q' => $this->options['query'],
+			'-' => $this->options['ignore'],
+			'from' => $this->options['user'],
+			'results_type' => $this->options['type'],
+			'rpp' => $this->options['limit']);
+
+		$query_string = $this->options['url'];
+		$query_first = true;
+
+		foreach ($queries as $key => $query) {
+			if ( $query != '' ){
+				$query_string .= ( $query_first ? '?' : '&' ) . (($key != '-' ) ? $key . '=' . $query : ( $queries['q'] == '' ? 'q=' : '' ) . $key . $query);
+				$query_first = false;
+			}
+				
+		}
+		return $query_string;
 	}
 
 	function __toString(){
