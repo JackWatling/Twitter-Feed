@@ -2,6 +2,10 @@
 
 class Tweet{
 
+	
+	public static $base_url = 'https://www.twitter.com/';
+
+	public static $show_display_picture = true;
 	public static $standardise_time;
 
 	public $tweet;
@@ -10,6 +14,7 @@ class Tweet{
 	public $author;
 	public $author_id;
 	public $author_dp;
+	public $author_link;
 	public $permalink;
 
 	function __construct( array $data ){
@@ -46,11 +51,11 @@ class Tweet{
 	}
 
 	function permalink(){
-		return 'https://www.twitter.com/' . $this->author . '/status/' . $this->tweet_id;
+		return self::$base_url . $this->author . '/status/' . $this->tweet_id;
 	}
 
 	function authorlink(){
-		return 'https://www.twitter.com/' . $this->author;
+		return self::$base_url . $this->author;
 	}
 
 	function parseLinks( $tweet ){
@@ -63,8 +68,8 @@ class Tweet{
 	function __toString(){
 		return '<li class="tweet">
 					<section class="info">
-						<a href="' . $this->author_link . '">' . $this->author . '</a>
-						<a class="date" href="#">' . $this->time( self::$standardise_time ) . '</a>
+						<a href="' . $this->author_link . '">' . ( self::$show_display_picture ? '<img src="' . $this->author_dp . '">' : '' ) . $this->author . '</a>
+						<a class="date" href="' . $this->permalink . '">' . $this->time( self::$standardise_time ) . '</a>
 					</section>
 					<p>' . $this->tweet . '</p>
 				</li>';

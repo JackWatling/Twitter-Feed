@@ -4,23 +4,25 @@ require_once 'tweet.class.php';
 
 class Twitter{
 
+	private static $url = 'http://search.twitter.com/search.json';
+
 	private $options = array(
-		'debug' => false,
 		'cache' => 'classes/twitter.cache',
 		'cache_timer' => 10800,
 		'cache_force' => false,
-		'url' => 'http://search.twitter.com/search.json',
 		'query' => '',
-		'user' => '',
+		'user' => 'jeb_',
 		'type' => 'recent',
 		'ignore' => '',
 		'limit' => 50,
-		'standardise_time' => true
+		'standardise_time' => true,
+		'show_display_picture' => true
 	);
 
 	function __construct( array $options ){
 		$this->options = array_merge( $this->options, $options );
 		Tweet::$standardise_time = $this->options['standardise_time'];
+		Tweet::$show_display_picture = $this->options['show_display_picture'];
 		if ( !$this->isCached() || $this->options['cache_force'] )
 			$this->recache();
 	}
@@ -56,10 +58,8 @@ class Twitter{
 	}
 
 	function buildQuery(){
-		if ( $this->invalidQuery() ){
-			echo '<center><p>Invalid query supplied, ensure that a query or user is supplied, or both. Search defaulted to \'hello world\'.</p></center>';
+		if ( $this->invalidQuery() )
 			$this->options['query'] = 'hello%20world';
-		}
 
 		$queries = array(
 			'q' => $this->options['query'],
@@ -68,7 +68,7 @@ class Twitter{
 			'results_type' => $this->options['type'],
 			'rpp' => $this->options['limit']);
 
-		$query_string = $this->options['url'];
+		$query_string = self::$url;
 		$query_first = true;
 
 		foreach ($queries as $key => $query) {
