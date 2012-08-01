@@ -1,8 +1,11 @@
+<!-- Author: Jack Watling -->
+<!--   Date: July, 2012   -->
+
 <?php
 
 include 'classes/twitter.class.php';
 
-$twitter = new Twitter( array( 'cache_force' => true, 'show_display_picture' => true, 'show_tweet_meta' => true ) );
+$twitter = new Twitter( array( 'cache_force' => true, 'query' => 'hello world' ) );
 
 ?>
 

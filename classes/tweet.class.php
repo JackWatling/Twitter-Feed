@@ -1,23 +1,31 @@
+<!-- Author: Jack Watling -->
+<!--   Date: July, 2012   -->
+
 <?php
 
 class Tweet{
 
-
+	//Base Twitter url
 	public static $base_url = 'https://www.twitter.com/';
 
+	//Options for tweet displaying
 	public static $standardise_time = true;
 	public static $show_display_picture = true;
-	public static $show_tweet_meta = false;
+	public static $show_tweet_meta = true;
 
+	//Passed to constructor
 	private $tweet;
 	private $tweet_id;
 	private $tweet_time;
 	private $author;
 	private $author_id;
 	private $author_dp;
+
+	//Generated within class
 	private $author_link;
 	private $permalink;
 
+	//Constructs a Tweet object, no data can be omitted
 	function __construct( array $data ){
 		$this->tweet = $this->parseLinks( $data['tweet'] );
 		$this->tweet_id = $data['tweet_id'];
@@ -29,6 +37,7 @@ class Tweet{
 		$this->permalink = $this->permalink();
 	}
 
+	//Returns either a 'static' time in the format, DD/MM/YYYY @ HH:MM; or a contextual time in the format, 4 hours ago
 	function time( $static = false ){
 		$time = time() - strtotime( $this->tweet_time );
 
@@ -51,14 +60,17 @@ class Tweet{
 		return $time_string . ' ago';
 	}
 
+	//Creates a permalink to the Tweet
 	function permalink(){
 		return self::$base_url . $this->author . '/status/' . $this->tweet_id;
 	}
 
+	//Creates a permalink to the author of the Tweet
 	function authorlink(){
 		return self::$base_url . $this->author;
 	}
 
+	//Uses regex to parse the Tweet message and replace links, user mentions and hashtags with the appropriate links
 	function parseLinks( $tweet ){
 		$tweet = preg_replace( '/(http:\/\/[\w\/\-\.\?\&\#]+)/', '<a href="$1">$1</a>', $tweet );
 		$tweet = preg_replace( '/@([\w]+)/', '<a href="https://www.twitter.com/$1">@$1</a>', $tweet );
@@ -66,6 +78,7 @@ class Tweet{
 		return $tweet;
 	}
 
+	//A magic function, overrides the toString method, and allows the tweet to display itself
 	function __toString(){
 		return '<li class="tweet">
 					<section class="info">
