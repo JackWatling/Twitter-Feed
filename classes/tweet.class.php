@@ -2,11 +2,12 @@
 
 class Tweet{
 
-	
+
 	public static $base_url = 'https://www.twitter.com/';
 
+	public static $standardise_time = true;
 	public static $show_display_picture = true;
-	public static $standardise_time;
+	public static $show_tweet_meta = false;
 
 	public $tweet;
 	public $tweet_id;
@@ -72,7 +73,16 @@ class Tweet{
 						<a class="date" href="' . $this->permalink . '">' . $this->time( self::$standardise_time ) . '</a>
 					</section>
 					<p>' . $this->tweet . '</p>
-				</li>';
+					' . ( !self::$show_tweet_meta ? '' :
+					'<span class="break">...</span>
+					<section class="meta">
+						<ul>
+							<li>Author: <a href="' . $this->author_link . '">' . $this->author . '</a></li>
+							<li>Posted: <a href="' . $this->permalink . '">' . $this->time( true ) . '</a></li>
+							<li>Permalink: <a href="' . $this->permalink . '">' . $this->permalink . '</a></li>
+						</ul>
+					</section>' ) .
+					'</li>';
 	}
 
 }

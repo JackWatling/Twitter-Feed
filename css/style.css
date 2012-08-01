@@ -1,5 +1,5 @@
 body{
-	background: #e7e7e7;
+	background: #e5e5e5;
 }
 
 h1{
@@ -15,14 +15,14 @@ h1{
 
 ul.twitter{
 	font-family: 'RobotoLight';
-	color: #888888;
+	color: #707070;
 	width: 600px;
 	margin: 0 auto;
 	padding: 0;
 	list-style: none;
 }
 
-ul.twitter li{
+ul.twitter > li{
 	background: #ffffff;
 	padding: 15px 10px;
 	-webkit-border-radius: 3px;
@@ -81,5 +81,51 @@ ul.twitter li p a{
 }
 
 ul.twitter li p a:hover{
+	border-bottom: 1px dotted #00bdf4;
+}
+
+ul.twitter li span.break{
+	display: block;
+	font-size: 2.5em;
+	color: #909090;
+	text-align: center;
+	cursor: pointer;
+	line-height: 18px;
+	margin-top: -10px;
+	margin-bottom: 3px;
+}
+
+ul.twitter li span.break:hover{
+	color: #00bdf4;
+}
+
+ul.twitter li section.meta{
+	margin-top: 15px;
+}
+
+ul.twitter li section.meta ul{
+	padding: 0;
+}
+
+ul.twitter li section.meta ul li{
+	font-size: 0.9em;
+	line-height: 0.9em;
+	list-style: none;
+	margin: 5px 0;
+}
+
+ul.twitter li section.meta ul li:first-child{
+	margin-top: 0;
+}
+
+ul.twitter li section.meta ul li:last-child{
+	margin-bottom: 0;
+}
+
+ul.twitter section.meta ul li a{
+	color: #00bdf4;
+}
+
+ul.twitter section.meta ul li a:hover{
 	border-bottom: 1px dotted #00bdf4;
 }

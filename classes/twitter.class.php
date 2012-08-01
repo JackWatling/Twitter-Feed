@@ -16,13 +16,17 @@ class Twitter{
 		'ignore' => '',
 		'limit' => 50,
 		'standardise_time' => true,
-		'show_display_picture' => true
+		'show_display_picture' => true,
+		'show_tweet_meta' => false
 	);
 
 	function __construct( array $options ){
 		$this->options = array_merge( $this->options, $options );
+
 		Tweet::$standardise_time = $this->options['standardise_time'];
 		Tweet::$show_display_picture = $this->options['show_display_picture'];
+		Tweet::$show_tweet_meta = $this->options['show_tweet_meta'];
+
 		if ( !$this->isCached() || $this->options['cache_force'] )
 			$this->recache();
 	}
