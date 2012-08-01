@@ -9,14 +9,14 @@ class Tweet{
 	public static $show_display_picture = true;
 	public static $show_tweet_meta = false;
 
-	public $tweet;
-	public $tweet_id;
-	public $tweet_time;
-	public $author;
-	public $author_id;
-	public $author_dp;
-	public $author_link;
-	public $permalink;
+	private $tweet;
+	private $tweet_id;
+	private $tweet_time;
+	private $author;
+	private $author_id;
+	private $author_dp;
+	private $author_link;
+	private $permalink;
 
 	function __construct( array $data ){
 		$this->tweet = $this->parseLinks( $data['tweet'] );
