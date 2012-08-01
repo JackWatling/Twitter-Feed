@@ -85,14 +85,14 @@ ul.twitter li p a:hover{
 }
 
 ul.twitter li span.break{
+	height: 20px;
 	display: block;
-	font-size: 2.5em;
+	margin: -2px 0 -10px 0;
 	color: #909090;
+	font-size: 2.5em;
 	text-align: center;
+	line-height: 0px;
 	cursor: pointer;
-	line-height: 18px;
-	margin-top: -10px;
-	margin-bottom: 3px;
 }
 
 ul.twitter li span.break:hover{

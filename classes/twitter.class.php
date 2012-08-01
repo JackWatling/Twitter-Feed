@@ -11,7 +11,7 @@ class Twitter{
 		'cache_timer' => 10800,
 		'cache_force' => false,
 		'query' => '',
-		'user' => 'jeb_',
+		'user' => 'notch',
 		'type' => 'recent',
 		'ignore' => '',
 		'limit' => 50,

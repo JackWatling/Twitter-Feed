@@ -79,7 +79,7 @@ class Tweet{
 						<ul>
 							<li>Author: <a href="' . $this->author_link . '">' . $this->author . '</a></li>
 							<li>Posted: <a href="' . $this->permalink . '">' . $this->time( true ) . '</a></li>
-							<li>Permalink: <a href="' . $this->permalink . '">' . $this->permalink . '</a></li>
+							<li>Perma: <a href="' . $this->permalink . '">' . $this->permalink . '</a></li>
 						</ul>
 					</section>' ) .
 					'</li>';
