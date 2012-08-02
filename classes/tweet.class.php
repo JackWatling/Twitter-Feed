@@ -6,7 +6,7 @@
 class Tweet{
 
 	//Base Twitter url
-	public static $base_url = 'https://www.twitter.com/';
+	const BASE_URL = 'https://www.twitter.com/';
 
 	//Options for tweet displaying
 	public static $standardise_time = true;
@@ -62,19 +62,19 @@ class Tweet{
 
 	//Creates a permalink to the Tweet
 	function permalink(){
-		return self::$base_url . $this->author . '/status/' . $this->tweet_id;
+		return self::BASE_URL . $this->author . '/status/' . $this->tweet_id;
 	}
 
 	//Creates a permalink to the author of the Tweet
 	function authorlink(){
-		return self::$base_url . $this->author;
+		return self::BASE_URL . $this->author;
 	}
 
 	//Uses regex to parse the Tweet message and replace links, user mentions and hashtags with the appropriate links
 	function parseLinks( $tweet ){
 		$tweet = preg_replace( '/(http:\/\/[\w\/\-\.\?\&\#]+)/', '<a href="$1">$1</a>', $tweet );
-		$tweet = preg_replace( '/@([\w]+)/', '<a href="https://www.twitter.com/$1">@$1</a>', $tweet );
-		$tweet = preg_replace( '/#([\w]+)/', '<a href="https://www.twitter.com/search/%23$1">#$1</a>', $tweet );
+		$tweet = preg_replace( '/@([\w]+)/', '<a href="' . self::BASE_URL . '/$1">@$1</a>', $tweet );
+		$tweet = preg_replace( '/#([\w]+)/', '<a href="' . self::BASE_URL . '/search/%23$1">#$1</a>', $tweet );
 		return $tweet;
 	}
 

@@ -13,13 +13,13 @@ $twitter = new Twitter( array( 'cache_force' => true, 'query' => 'hello world' )
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>My Tweets</title>
+	<title>Hello World Tweets</title>
 	<link rel="stylesheet" href="fonts/stylesheet.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-	<h1>My Tweets</h1>
+	<h1>Hello World Tweets</h1>
 	<?php echo $twitter ?>
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

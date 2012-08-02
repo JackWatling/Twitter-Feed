@@ -8,7 +8,7 @@ require_once 'tweet.class.php';
 class Twitter{
 
 	//Base Twitter search rl
-	private static $url = 'http://search.twitter.com/search.json';
+	const URL = 'http://search.twitter.com/search.json';
 
 	//Twitter options
 	private $options = array(
@@ -84,7 +84,7 @@ class Twitter{
 			'results_type' => $this->options['type'],
 			'rpp' => $this->options['limit']);
 
-		$query_string = self::$url;
+		$query_string = self::URL;
 		$query_first = true;
 
 		foreach ($queries as $key => $query) {
